@@ -1,4 +1,4 @@
-from system_oprations import create_dir, Config,  spotdl
+from system_oprations import create_dir, Config, spotdl
 from services import YtDiscovery, YandexDiscovery
 from interface import UserInterface
 
@@ -31,5 +31,5 @@ elif config.users[user] == "yandex":
         track_list = music_collection.parse_tracks(playlist)
         for track in track_list:
             spotdl(track_name=track, dir_name=dirname)
-else: 
+else:
     print("new user!")

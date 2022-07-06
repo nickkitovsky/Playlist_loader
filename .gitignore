@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # My private files
-auth/*
+auth/*.json
 TODO.txt
 .gitignore
 # Cache file
