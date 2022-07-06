@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# My private files
+auth/*
+TODO.txt
+# Cache file
+spotdl-temp
+.cache
+.spotdl-cache
