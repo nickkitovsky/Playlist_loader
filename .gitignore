@@ -6,6 +6,7 @@ __pycache__/
 # My private files
 auth/*
 TODO.txt
+.gitignore
 # Cache file
 spotdl-temp
 .cache
