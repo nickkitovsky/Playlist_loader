@@ -1,0 +1,13 @@
++yandex accounts
++create requiment.txt
+
+?? spotdl_loader.sh - linux version sond loader
+
+check user auth data
+error open auth fail (FileNotFoundError: services.py", line 102)
+backward compatibility python version
+new user in intergafe and logic program
+better view in spotdl_loader
+progress bar in interface
+better comments and documentation
+select playlist for all users, and then common dowload quote

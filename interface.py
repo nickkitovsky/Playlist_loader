@@ -1,46 +1,47 @@
 from prompt_toolkit.shortcuts import checkboxlist_dialog
 from prompt_toolkit.shortcuts import radiolist_dialog
-from system_oprations import Config
+from prompt_toolkit.shortcuts import input_dialog
+from local import Config
 
 
-class UserInterface:
+class Interface:
     def __init__(self, config: Config) -> None:
         self.config = config
 
-    def change_user_dialog(self):
-        users = list(self.config.users.keys()) + [
-            "new_user",
-        ]
+    def __draw_radio_dialog(self, title: str, text: str, data: dict[str, str]) -> str:
         result = radiolist_dialog(
-            title="Users",
-            text="Select the desired user",
-            values=[(f"{user}", user) for user in users],
+            title=title,
+            text=text,
+            values=[(key, value) for key, value in data.items()],
         ).run()
-        if result in users:
-            return result
-        else:
-            return self.new_user()
+        return result
 
-    def new_user(self):
-        print("new_user()")
-        return "SHABLODA!!!"
+    def __draw_checkbox_dialog(self, title: str, text: str, data: list):
+        result = checkboxlist_dialog(
+            title=title,
+            text=text,
+            values=data,
+        ).run()
+        return result
 
-    def playlist_template(self, user, playlists):
-        if self.config.users[user] == "ytmusic":
-            return [
+    def select_user(self) -> str:
+        title = "Select user"
+        text = "Please select user or add new"
+        data = {key: key for key in self.config.users.keys()}
+        user = self.__draw_radio_dialog(
+            title=title, text=text, data=data | {"New User": "newuser"}
+        )
+        return user
+
+    def select_playlists(self, playlists:list):
+        title = "Playlists"
+        text = "Select playlists to download"
+        data = [
                 (
-                    (pl["playlistId"], f"{pl['title']} • {pl['description']}"),
-                    f"{pl['title']} • {pl['description']}",
+                    entry.get("playlistId"),
+                    f'{entry.get("title")} ({entry.get("description")})',
                 )
-                for pl in playlists
+                for entry in playlists
             ]
-        elif self.config.users[user] == "yandex":
-            return [("liked", "Liked Playlist"), ("daily","Daily Playlist")]
-
-    def change_playlists(self, user: str, playlists: list):
-        results_array = checkboxlist_dialog(
-            title="Playlists",
-            text="Check playlist to download",
-            values=self.playlist_template(user, playlists),
-        ).run()
-        return results_array
+        playlists = self.__draw_checkbox_dialog(title=title, text = text, data = data)
+        return playlists
