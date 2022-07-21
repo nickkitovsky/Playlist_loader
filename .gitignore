@@ -11,3 +11,4 @@ TODO.txt
 spotdl-temp
 .cache
 .spotdl-cache
+.legacy/
